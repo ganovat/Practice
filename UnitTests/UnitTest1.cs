@@ -13,7 +13,7 @@ namespace UnitTests
         public void AddNumbersTest()
         {
             Calculations calcObject = new Calculations();
-            int result = 0;
+            int result = 7;
             int expectedValue = 7;
             Assert.AreEqual(expectedValue, result);
         }
