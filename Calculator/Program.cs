@@ -1,4 +1,5 @@
-﻿namespace Calculator
+﻿
+namespace Calculator
 {
     class Program
     {
@@ -13,6 +14,22 @@
         {
             return 0;
 
+        }
+
+       
+        public double Divide(double a, double b)
+        {
+            if (b == 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            return a / b;
+        }
+
+        public double Subtract(int v1, int v2)
+        {
+
+            return v1 - v2;
         }
     }
 }
