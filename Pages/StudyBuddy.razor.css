@@ -1,0 +1,193 @@
+﻿.study-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 0 20px;
+    transition: all 0.3s ease;
+}
+
+.search-bar {
+    align-items: center;
+}
+
+.study-card {
+    background-color: aquamarine;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    min-height: 180px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+    .study-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        border-color: #7a108f;
+    }
+
+
+    .study-card.selected {
+        min-height: 400px;
+        transform: scale(1.05);
+        border: 3px solid #7a108f;
+        box-shadow: 0 10px 30px rgba(122, 16, 143, 0.3);
+        background-color: #b5f0de;
+        z-index: 10;
+    }
+
+
+.study-container:has(.study-card.selected) .study-card:not(.selected) {
+    display: none;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: transparent;
+}
+
+.title-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.card-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.4rem;
+}
+
+.study-card.selected .card-header h3 {
+    font-size: 2rem;
+}
+
+.major-badge {
+    background: #7a108f;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.study-card.selected .major-badge {
+    font-size: 1.1rem;
+    padding: 8px 16px;
+}
+
+.meta-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.year-badge {
+    background: #2E8B57;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.study-card.selected .year-badge {
+    font-size: 1.1rem;
+    padding: 8px 16px;
+}
+
+.posted-by {
+    background: #7a108f;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.study-card.selected .posted-by {
+    font-size: 1.1rem;
+    padding: 8px 16px;
+}
+
+
+    .study-card.selected .posted-by::before {
+        font-size: 1.1rem;
+    }
+
+.description {
+    color: #333;
+    margin: 0;
+    flex: 1;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 15px;
+    border-radius: 12px;
+    line-height: 1.5;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.study-card.selected .description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.back-button {
+    background: #7a108f;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+    .back-button:hover {
+        background: #a20bcc;
+        transform: translateX(-5px);
+        border-color: white;
+    }
+
+
+@keyframes expandCard {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.05);
+    }
+}
+
+.study-card.selected {
+    animation: expandCard 0.3s ease forwards;
+}
+
+
+#back {
+    font-size: 20px;
+    color: white;
+}

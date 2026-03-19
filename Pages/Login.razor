@@ -1,0 +1,152 @@
+﻿@page "/"
+
+@using System.Net.Http;
+@using System.Net.Http.Json
+@inject HttpClient Http
+@inject NavigationManager Navigation
+
+
+<div class="LoginWork">
+
+    <div class="box">
+        <h2 class="login-title"> UniPal</h2>
+
+        <input class="login-input" type="Email" placeholder="Email" @bind="email" />
+        <input class="login-input" type="Password" placeholder="Password" @bind= "password"/>
+        <button class="btn btn-primary" @onclick="HandleLogin">Login</button>
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <p class="error-message">@errorMessage</p>
+        }
+
+        
+
+    </div>
+    
+
+
+
+
+
+</div>
+
+<div class="register-prompt" style="margin-top: 20px; text-align: center;">
+
+    <p>Don't have an account? 
+
+        <a href="/register" style="color: #667eea; text-decoration: none; font-weight:600;">
+            
+            Register here
+            
+        
+        
+        </a>
+        
+    
+    
+    </p>
+
+    <p style="font-size: 12px; color: #999; ">Only hull.ac.uk emails are accepted</p>
+
+
+
+</div>
+
+@code {
+    private string email = string.Empty;
+    private string password = string.Empty;
+    private string errorMessage = string.Empty;
+    private string debugInfo = string.Empty;
+    private bool isLoading = false;
+
+
+    private async Task HandleLogin()
+    {
+        isLoading = true;
+        errorMessage = string.Empty;
+        debugInfo = "ATTEMPTING LOGIN...";
+
+        // The login data needed id and passwordHash exactly as the API expects
+
+        var loginData = new { id = email.Trim(), passwordHash = password.Trim() };
+        try
+        {
+            debugInfo = $"Sending request to api/Authentication/login";
+
+            var response = await Http.PostAsJsonAsync("https://localhost:7251/api/Authentication/login", loginData);
+
+            debugInfo = $"Response status: {(int)response.StatusCode} {response.StatusCode}";
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+
+                Navigation.NavigateTo("/home", true);
+            }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                debugInfo = $"Error response: {errorContent}";
+
+                try
+                {
+                    var errorObj = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(errorContent);
+                    if (errorObj != null && errorObj.ContainsKey("message"))
+                    {
+                        errorMessage = errorObj["message"];
+                    }
+                    else if (errorObj != null && errorObj.ContainsKey("title"))
+                    {
+                        errorMessage = errorObj["title"];
+                    }
+                    else
+                    {
+                        errorMessage = errorContent;
+
+                    }
+                }
+                catch
+                {
+                    errorMessage = errorContent.Length > 0 ? errorContent : "Invalid email or password.";
+
+                }
+
+
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            debugInfo = $"Network error: {ex.Message}";
+            errorMessage = "Unable to connect to the server. Please check your API is running local host 7251.";
+
+            //CORS error check
+
+            if (ex.Message.Contains("CORS") || ex.Message.Contains("cors"))
+            {
+                errorMessage = " It seems like there might be a CORS issue. Please ensure your API is configured to allow requests from this origin.";
+            }
+
+
+        }
+        catch (Exception ex)
+        {
+            debugInfo = $"Exception: {ex.GetType().Name} - {ex.Message}";
+
+            errorMessage = $"An unexpected error occurred :{ex.Message}";
+
+            
+           
+        }
+        finally
+        {
+            isLoading = false;
+        }
+  
+        
+    }
+
+
+}

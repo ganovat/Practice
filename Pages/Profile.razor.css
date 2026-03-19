@@ -1,0 +1,54 @@
+﻿.bio-section,
+.details-section,
+.interests-section{
+    background:rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    padding:20px;
+    margin-bottom:12px;
+    border-radius: 12px ;
+    color:white;
+
+}
+
+.interest-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 10px;
+
+}
+
+.interest-tag{
+    display: inline-block;
+    background-color: #667eea;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size:14px;
+
+
+}
+
+.profile-name{
+    font-weight:bold;
+    color: aquamarine
+}
+
+.bio-section h3,
+.details-section h3,
+.interests-section h3 {
+    font-weight: bold;
+    color: aquamarine
+}
+
+.edit-profile-btn {
+
+    background: linear-gradient(135deg,#7b2ff7, #9f44ff);
+    color: white;
+    border:none;
+    padding:10px 18px;
+    border-radius:25px;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition: all 0.3s ease;
+}

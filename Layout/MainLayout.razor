@@ -1,0 +1,160 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager Navigation
+
+<div class="app-layout">
+
+    @if (!IsLoginPage())
+    {
+        /*
+        <!-- Desktop Sidebar -->
+        <aside class="sidebar">
+            <ul class="nav-menu">
+                <li><NavLink href="/home" Match="NavLinkMatch.All">Home</NavLink></li>
+                <li><NavLink href="/profile">Profile</NavLink></li>
+
+                <!-- Add more nav items here in the future -->
+            </ul>
+        </aside> */
+
+        <aside class="sidebar">
+            <ul class="nav-menu">
+
+
+
+                <li>
+                    <NavLink href="/home" Match="NavLinkMatch.All">
+                        <span class="bi bi-house-door me-2"></span>
+                        <span class="desktop-text">Home</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink href="/messages">
+                        <span class="bi bi-chat me-2"></span>
+                        <span class="desktop-text">Messages</span>
+                    </NavLink>
+                </li>
+
+                <li>
+                    <NavLink href="/FriendSwipe">
+                        <span id="icon-friends" class="bi bi-hexagon"></span>
+                        <span class="desktop-text">Friend Search</span>
+                    </NavLink>
+                </li>
+
+                <li>
+                    <NavLink href="/pals">
+                        <span class="bi bi-chat-left-text"></span>
+                        <span class="desktop-text">Pals</span>
+                    </NavLink>
+                </li>
+
+                <li>
+                    <NavLink href="/profile">
+                        <span class="bi bi-person me-2"></span>
+
+                        <span class="desktop-text">Profile</span>
+                    </NavLink>
+                </li>
+                @*             <li>
+                <NavLink href="/login">
+                    <span class="bi bi-box-arrow-in-right me-2"></span>
+                    <span class="desktop-text">Login</span>
+                </NavLink>
+            </li> *@
+
+
+
+            </ul>
+        </aside>
+
+        
+
+
+    }
+   
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <div class="logo">
+            <h1>Uni</h1>
+            <h1 class="accent">Pal</h1>
+        </div>
+
+        <div class="content">
+            @Body
+        </div>
+    </main>
+
+
+    @if (!IsLoginPage())
+    {
+        /*
+        <!-- Mobile Bottom Navigation -->
+        <nav class="bottom-nav">
+            <ul class="nav-menu bottom-menu">
+                <li><NavLink href="/home" Match="NavLinkMatch.All">Home</NavLink></li>
+                <li><NavLink href="/profile">Profile</NavLink></li>
+
+                <!-- Add more items here -->
+            </ul>
+        </nav> */
+
+
+        <nav class="bottom-nav">
+            <ul class="nav-menu bottom-menu">
+
+
+
+                <li>
+                    <NavLink href="/home" Match="NavLinkMatch.All">
+                        <span id="icon-home" class="bi bi-house-door"></span>
+                    </NavLink>
+                </li>
+
+                <li>
+                    <NavLink href="/messages">
+                        <span id="icon-messages" class="bi bi-send"></span>
+                    </NavLink>
+                </li>
+
+                <li>
+                    <NavLink href="/FriendSwipe">
+                        <span id="icon-friends" class="bi bi-hexagon"></span>
+                    </NavLink>
+                </li>
+
+                <li>
+                    <NavLink href="/pals">
+                        <span id="icon-pals" class="bi bi-chat-left-text"></span>
+                    </NavLink>
+                </li>
+
+
+
+                <li>
+                    <NavLink href="/profile">
+                        <span id="icon-profile" class="bi bi-person"></span>
+                    </NavLink>
+                </li>
+                @*     <li>
+                <NavLink href="/login">
+                    <span id="icon-login" class="bi bi-box-arrow-in-right"></span>
+                </NavLink>
+            </li> *@
+
+            </ul>
+        </nav>
+
+    }
+    
+
+</div>
+
+    @code{
+    // Check to see if the page is a login page so that the nav bar is not displayed
+    private bool IsLoginPage()
+    {
+        return Navigation.Uri == Navigation.BaseUri; // this checks if the current url is equal to the rooy url which is the login page
+
+    }
+}

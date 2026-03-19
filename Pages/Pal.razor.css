@@ -1,0 +1,138 @@
+﻿/* Pals Page Specific Styles */
+.PalPage {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Changed from 'center' to 'flex-start' */
+    min-height: 50vh; /* Reduced from 70vh */
+    width: 100%;
+    margin-top: 2rem; /* Add a little space from top, adjust as needed */
+    /* OR use padding-top instead: */
+    /* padding-top: 2rem; */
+}
+
+    .PalPage .navMenu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        width: 100%;
+        max-width: 400px;
+    }
+
+        /* Rest of your existing CSS remains the same */
+        .PalPage .navMenu li {
+            margin: 0;
+            width: 100%;
+        }
+
+            .PalPage .navMenu li a {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                text-decoration: none;
+                color: white;
+                width: 100%;
+                padding: 1.5rem 2rem;
+                border-radius: 60px;
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            /* Different colors for each button */
+            .PalPage .navMenu li:first-child a {
+                background: linear-gradient(135deg, #416cf4, #684dc8);
+            }
+
+            .PalPage .navMenu li:last-child a {
+                background: linear-gradient(135deg, #7a108f, #a20bcc);
+            }
+
+            /* Hover effects */
+            .PalPage .navMenu li:first-child a:hover {
+                background: linear-gradient(135deg, #4f7cff, #7a5de0);
+                transform: translateY(-5px);
+                box-shadow: 0 15px 25px rgba(65, 108, 244, 0.4);
+            }
+
+            .PalPage .navMenu li:last-child a:hover {
+                background: linear-gradient(135deg, #8c1aa3, #b41de0);
+                transform: translateY(-5px);
+                box-shadow: 0 15px 25px rgba(122, 16, 143, 0.4);
+            }
+
+            /* Active state */
+            .PalPage .navMenu li a.active {
+                transform: scale(1.02);
+                box-shadow: 0 0 0 3px aquamarine, 0 10px 20px rgba(0, 0, 0, 0.3);
+            }
+
+            .PalPage .navMenu li:first-child a.active,
+            .PalPage .navMenu li:last-child a.active {
+                background: linear-gradient(135deg, #2E8B57, #3CB371);
+            }
+
+            /* Icon styling */
+            .PalPage .navMenu li a span:first-child {
+                font-size: 3rem !important;
+                margin-right: 2rem;
+                color: white;
+                filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+            }
+
+            /* Text styling */
+            .PalPage .navMenu li a .desktop-text {
+                font-size: 2rem !important;
+                font-weight: bold;
+                color: white;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+
+            /* Shine effect */
+            .PalPage .navMenu li a::after {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -60%;
+                width: 200%;
+                height: 200%;
+                background: rgba(255, 255, 255, 0.1);
+                transform: rotate(30deg);
+                transition: all 0.5s ease;
+                pointer-events: none;
+            }
+
+            .PalPage .navMenu li a:hover::after {
+                left: 100%;
+            }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .PalPage {
+        min-height: 40vh; /* Also reduced for mobile */
+        margin-top: 1rem;
+    }
+
+        .PalPage .navMenu {
+            max-width: 350px;
+            gap: 1.5rem;
+        }
+
+            .PalPage .navMenu li a {
+                padding: 1.2rem 1.5rem;
+            }
+
+                .PalPage .navMenu li a span:first-child {
+                    font-size: 2.5rem !important;
+                    margin-right: 1.5rem;
+                }
+
+                .PalPage .navMenu li a .desktop-text {
+                    font-size: 1.5rem !important;
+                }
+}

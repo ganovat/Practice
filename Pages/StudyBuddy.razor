@@ -1,0 +1,67 @@
+﻿@page "/study"
+<h3>Study Groups</h3>
+
+
+<div class="search-bar">
+    <NavLink href="/pals">
+        <span id="back" class="bi bi-arrow-left-square-fill"></span>
+    </NavLink>
+    <span class="bi bi-filter-square"></span>
+    <input type="text" placeholder="Search...">
+    <span class="bi bi-search"></span>
+</div>
+
+<div class="study-container">
+    <!-- Study Group Card 1 -->
+    <div class="study-card @(selectedCard == 1 ? "selected" : "")" @onclick="() => SelectCard(1)">
+        <div class="card-header">
+            <div class="title-section">
+                <span class="major-badge">Computer sciance</span>
+            </div>
+            <div class="meta-section">
+                <span class="year-badge">First Years</span>
+                <span class="posted-by">Bella</span>
+            </div>
+        </div>
+
+        <p class="description">Hey nerds, whos struggiling with Capstone, wanna meet up and do some work togther we can help each other and just be there for emotional suport cuz i need it lowkey</p>
+    </div>
+
+    <!-- Study Group Card 2 -->
+    <div class="study-card @(selectedCard == 2 ? "selected" : "")" @onclick="() => SelectCard(2)">
+        <div class="card-header">
+            <div class="title-section">
+
+                <span class="major-badge">Biology</span>
+            </div>
+            <div class="meta-section">
+                <span class="year-badge">Second Years</span>
+                <span class="posted-by">Connor</span>
+            </div>
+        </div>
+
+        <p class="description">Hello everyone, does anyone wanna meet up at library to talk some biology and work on some assgments...</p>
+    </div>
+
+
+    @if (selectedCard != 0)
+    {
+        <button class="back-button" @onclick="ClearSelection">
+            ← Back to all groups
+        </button>
+    }
+</div>
+
+@code {
+    private int selectedCard = 0;
+
+    private void SelectCard(int cardId)
+    {
+        selectedCard = cardId;
+    }
+
+    private void ClearSelection()
+    {
+        selectedCard = 0;
+    }
+}

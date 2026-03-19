@@ -1,0 +1,93 @@
+﻿@page "/home"
+@using UniPal_V1.Models
+@using System.Linq
+
+<div class="home-container">
+
+    <h1 class="logo">UniPal</h1>
+
+    <!-- FEATURED EVENT (MCU) -->
+    <div class="featured-event"
+         @onclick="() => SelectEvent(FeaturedEvent)">
+
+        <img src="@FeaturedEvent.Image" />
+        <h2>@FeaturedEvent.Title</h2>
+
+    </div>
+
+    <!-- EVENT THUMBNAILS (excluding featured) -->
+    <div class="event-list">
+        @foreach (var ev in Events.Skip(1))
+        {
+            <img src="@ev.Image"
+                 class="event-thumb @(SelectedEvent == ev ? "selected" : "")"
+                 @onclick="() => SelectEvent(ev)" />
+        }
+    </div>
+
+    <!-- SELECTED EVENT DETAIL -->
+    @if (SelectedEvent != null)
+    {
+        <div class="event-detail">
+
+            <img src="@SelectedEvent.Image" />
+
+            <div class="event-info">
+                <h2>@SelectedEvent.Title</h2>
+                <p>@SelectedEvent.Description</p>
+
+                <p><b>Date:</b> @SelectedEvent.Date</p>
+                <p><b>Time:</b> @SelectedEvent.Time</p>
+                <p><b>Location:</b> @SelectedEvent.Location</p>
+            </div>
+
+        </div>
+    }
+
+</div>
+
+@code {
+    EventItem? SelectedEvent;
+
+    List<EventItem> Events = new()
+    {
+        new EventItem {
+            Title="MCU Marathon",
+            Image="/images/mcu.jpg",
+            Description="Movie night in the common room with snacks and friends.",
+            Date="18 March",
+            Time="8PM",
+            Location="Common Room"
+        },
+        new EventItem {
+            Title="Pool in Spoons",
+            Image="/images/pool.jpg",
+            Description="Chill pool night with friends",
+            Date="20 March",
+            Time="7PM",
+            Location="Wetherspoons"
+        },
+        new EventItem {
+            Title="Valorant Watch Party",
+            Image="/images/valorant.jpg",
+            Description="Watch pro matches together",
+            Date="22 March",
+            Time="6PM",
+            Location="Student Lounge"
+        }
+
+    };
+
+    // First event = Featured (MCU)
+    EventItem FeaturedEvent => Events[0];
+
+    protected override void OnInitialized()
+    {
+        SelectedEvent = FeaturedEvent;
+    }
+
+    void SelectEvent(EventItem ev)
+    {
+        SelectedEvent = ev;
+    }
+}

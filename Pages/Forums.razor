@@ -1,0 +1,80 @@
+﻿@page "/Forum"
+
+<h3>Forums</h3>
+
+
+
+<div class="search-bar">
+
+
+    <NavLink href="/pals">
+        <span id="back" class="bi bi-arrow-left-square-fill"></span>
+    </NavLink>
+
+    <span class="bi bi-filter-square"></span>
+    <input type="text" placeholder="Search...">
+    <span class="bi bi-search"></span>
+</div>
+
+
+<div class="study-container">
+    <!-- Study Group Card 1 -->
+    <div class="study-card @(selectedCard == 1 ? "selected" : "")" @onclick="() => SelectCard(1)">
+        <div class="card-header">
+            <div class="title-section">
+                <span class="major-badge">Ghost Building</span>
+            </div>
+            <div class="meta-section">
+                <span class="posted-by">Lucy</span>
+            </div>
+        </div>
+
+        <p class="description">
+            So i’m a freshers and i noticed the building that
+            looks abandoned, and it’s located in the middle...
+        </p>
+    </div>
+
+    <!-- Study Group Card 2 -->
+    <div class="study-card @(selectedCard == 2 ? "selected" : "")" @onclick="() => SelectCard(2)">
+        <div class="card-header">
+            <div class="title-section">
+
+                <span class="major-badge">Avangers Doomsday</span>
+            </div>
+            <div class="meta-section">
+                <span class="posted-by">Dexter</span>
+            </div>
+        </div>
+
+        <p class="description">
+            I’m really existed for the movie but i have some
+            opinions on what direction they leading the MCU...
+        </p>
+    </div>
+
+
+    @if (selectedCard != 0)
+    {
+        <button class="back-button" @onclick="ClearSelection">
+            ← Back to all forums
+        </button>
+    }
+</div>
+
+@code {
+    private int selectedCard = 0;
+
+    private void SelectCard(int cardId)
+    {
+        selectedCard = cardId;
+    }
+
+    private void ClearSelection()
+    {
+        selectedCard = 0;
+    }
+
+
+
+}
