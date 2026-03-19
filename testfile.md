@@ -234,4 +234,81 @@
     }
 }
 
+
+
+
+
+
+[HttpPost("register")]
+public async Task<IActionResult> Register([FromBody] User newUser)
+{
+    try
+    {
+        _logger.LogInformation($"========== REGISTRATION ATTEMPT ==========");
+        _logger.LogInformation($"Email: {newUser.Id}");
+        _logger.LogInformation($"Password Hash Length: {newUser.PasswordHash?.Length ?? 0}");
+
+        // Validate input
+        if (newUser == null || string.IsNullOrEmpty(newUser.Id) || string.IsNullOrEmpty(newUser.PasswordHash))
+        {
+            _logger.LogWarning("Registration failed: Missing required fields");
+            return BadRequest(new { message = "Email and password are required." });
+        }
+
+        // Validate email domain
+        if (!newUser.Id.ToLower().EndsWith("@hull.ac.uk"))
+        {
+            _logger.LogWarning($"Registration failed: Invalid email domain - {newUser.Id}");
+            return BadRequest(new { message = "Only @hull.ac.uk email addresses are allowed to register." });
+        }
+
+        // Check if user already exists
+        var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == newUser.Id);
+        if (existingUser != null)
+        {
+            _logger.LogWarning($"Registration failed: Email already exists - {newUser.Id}");
+            return BadRequest(new { message = "An account with this email already exists." });
+        }
+
+        // Validate password
+        if (string.IsNullOrEmpty(newUser.PasswordHash) || newUser.PasswordHash.Length < 6)
+        {
+            _logger.LogWarning($"Registration failed: Password too short - {newUser.PasswordHash?.Length ?? 0} characters");
+            return BadRequest(new { message = "Password must be at least 6 characters long." });
+        }
+
+        // Add registered date if your model has it
+        // newUser.RegisteredDate = DateTime.Now;
+
+        // Add the new user
+        await _context.Users.AddAsync(newUser);
+        var saveResult = await _context.SaveChangesAsync();
+        
+        _logger.LogInformation($"Database save result: {saveResult} rows affected");
+        _logger.LogInformation($"✅ User registered successfully: {newUser.Id}");
+        _logger.LogInformation($"========== REGISTRATION SUCCESS ==========");
+        
+        return Ok(new { message = "Registration successful! You can now login." });
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "========== REGISTRATION ERROR ==========");
+        _logger.LogError($"Error: {ex.Message}");
+        _logger.LogError($"Stack Trace: {ex.StackTrace}");
+        return StatusCode(500, new { message = $"Server error: {ex.Message}" });
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 ```
